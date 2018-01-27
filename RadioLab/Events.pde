@@ -55,7 +55,7 @@ void keyReleased(){
 void mouseWheel(MouseEvent event) {
   float e = event.getCount();
   e=-e;
-  zoom+=(e*10);
+  zoom+=(e*(60));
   if(zoom>495){
     zoom=495;
   }
