@@ -5,6 +5,8 @@ int[] fibonacci;
 
 int x=0;
 int y=0;
+int minSpeed = 1;
+int maxSpeed =20;
 
 int cameraM=1;
 float zoom=1;
@@ -17,6 +19,8 @@ void setup(){
     gazebo.addPlanet();
   }
   osiris=new Player();
+  osiris.velocity.x =1;
+  osiris.velocity.y =1;
   editablesurface=createGraphics(100,100);
   fibonacci= new int[11];
   fibonacci[0]= 1;
@@ -44,10 +48,10 @@ void draw(){
     default:
       break;
   }
-  if(keys[0]){x--;}
-  if(keys[1]){x++;}
-  if(keys[2]){y++;}
-  if(keys[3]){y--;}
+  if(keys[0]){x-=map(zoom,500,-500,minSpeed,maxSpeed);}
+  if(keys[1]){x+=map(zoom,500,-500,minSpeed,maxSpeed);}
+  if(keys[2]){y+=map(zoom,500,-500,minSpeed,maxSpeed);}
+  if(keys[3]){y-=map(zoom,500,-500,minSpeed,maxSpeed);}
   if(keys[4]){cameraM=0;}
   if(keys[5]){cameraM=1;}
   gazebo.drawPlanets();
@@ -57,23 +61,4 @@ void draw(){
   strokeWeight(7);
   osiris.drawPlayer();
   strokeWeight(1);
-}
-
-class Player{
-  PVector position;
-  
-  Player(){
-    position=new PVector(30,0);
-  }
-  
-  PVector getPlayerLocation(){
-    return(position);
-  }
-  
-  void drawPlayer(){
-    stroke(255);
-    fill(0);
-    rect(position.x-3,position.y-3,3,5);
-    rect(position.x+1,position.y-3,3,5);
-  }
 }

@@ -3,7 +3,7 @@ class PlanetSystem{
   ArrayList<Planet> planets;
   
   PlanetSystem(){
-    size=1000.0;
+    size=3162.0;
     planets=new ArrayList<Planet>();
   }
   
