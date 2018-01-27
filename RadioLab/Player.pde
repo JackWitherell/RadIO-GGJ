@@ -12,10 +12,12 @@ class Player{
       if(sqrt(pow((position.x-gazebo.getPlanet(i).getPosition().x),2)+pow(position.y-gazebo.getPlanet(i).getPosition().y,2))<gazebo.getPlanet(i).getRadius()){
         setPlanet(i);
         System.out.println(i);
-        position=gazebo.getPlanet(i).getPosition();
         break;
       }
     }
+  }
+  
+  void escape(){
   }
   
   void velXadd(float abb){
@@ -37,6 +39,10 @@ class Player{
     planetCollision();
     if(planetID==-1){
       position.add(velocity);
+    }
+    else{
+      position.set(lerp(gazebo.getPlanet(planetID).getPosition().x,position.x,.96),lerp(gazebo.getPlanet(planetID).getPosition().y,position.y,.96));
+      escape();
     }
   }
   void drawPlayer(){

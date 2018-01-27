@@ -71,5 +71,8 @@ void mouseWheel(MouseEvent event) {
   if(zoom>495){
     zoom=495;
   }
+  if(zoom<-4979){
+    zoom=-4979;
+  }
     println(zoom);
 }

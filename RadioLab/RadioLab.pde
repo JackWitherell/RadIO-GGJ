@@ -48,6 +48,14 @@ void draw(){
     default:
       break;
   }
+  gazebo.drawPlanets();
+  scale(10);
+  stroke(255);
+  fill(0);
+  rect(osiris.getPlayerLocation().x-map(zoom,495,-5000,42,3890),
+       osiris.getPlayerLocation().y-map(zoom,495,-5000,34,3150),
+       map(zoom,-500,500,200,10),
+       map(zoom,-500,500,200,10));
   if(keys[0]){x-=map(zoom,500,-500,minSpeed,maxSpeed);}
   if(keys[1]){x+=map(zoom,500,-500,minSpeed,maxSpeed);}
   if(keys[2]){y+=map(zoom,500,-500,minSpeed,maxSpeed);}
@@ -58,10 +66,7 @@ void draw(){
   if(keys[7]){osiris.velXadd(-.25);}
   if(keys[8]){osiris.velYadd(.25);}
   if(keys[9]){osiris.velXadd(.25);}
-  gazebo.drawPlanets();
   //scaletwo(4);
-  
-  scale(10);
   strokeWeight(7);
   osiris.drawPlayer();
   strokeWeight(1);
