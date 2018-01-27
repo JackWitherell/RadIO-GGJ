@@ -10,7 +10,7 @@ int maxSpeed =20;
 
 int cameraM=1;
 float zoom=1;
-boolean [] keys=new boolean[8];
+boolean [] keys=new boolean[10];
 
 void setup(){
   size(800,640,P3D);
@@ -54,6 +54,10 @@ void draw(){
   if(keys[3]){y-=map(zoom,500,-500,minSpeed,maxSpeed);}
   if(keys[4]){cameraM=0;}
   if(keys[5]){cameraM=1;}
+  if(keys[6]){osiris.velYadd(-.25);}
+  if(keys[7]){osiris.velXadd(-.25);}
+  if(keys[8]){osiris.velYadd(.25);}
+  if(keys[9]){osiris.velXadd(.25);}
   gazebo.drawPlanets();
   //scaletwo(4);
   

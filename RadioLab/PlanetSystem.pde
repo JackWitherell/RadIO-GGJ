@@ -30,6 +30,13 @@ class PlanetSystem{
     planets.add(new Planet(x,y,sized));
   }
   
+  int getPlanetAmount(){
+    return planets.size();
+  }
+  
+  Planet getPlanet(int i){
+    return planets.get(i);
+  }
   
   void drawPlanets(){
     for(int i= 0; i<planets.size(); i++){

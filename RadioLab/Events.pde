@@ -17,11 +17,17 @@ void keyPressed(){
   else if(key=='2'){
     keys[5]=true;
   }
-  else if(key=='3'){
+  else if(key=='w'){
     keys[6]=true;
   }
-  else if(key=='4'){
+  else if(key=='a'){
     keys[7]=true;
+  }
+  else if(key=='s'){
+    keys[8]=true;
+  }
+  else if(key=='d'){
+    keys[9]=true;
   }
 }
 
@@ -38,17 +44,23 @@ void keyReleased(){
   else if(keyCode==DOWN){
     keys[3]=false;
   }
-  else if(keyCode=='1'){
+  else if(key=='1'){
     keys[4]=false;
   }
-  else if(keyCode=='2'){
+  else if(key=='2'){
     keys[5]=false;
   }
-  else if(keyCode=='3'){
+  else if(key=='w'){
     keys[6]=false;
   }
-  else if(keyCode=='4'){
+  else if(key=='a'){
     keys[7]=false;
+  }
+  else if(key=='s'){
+    keys[8]=false;
+  }
+  else if(key=='d'){
+    keys[9]=false;
   }
 }
 

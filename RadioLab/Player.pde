@@ -1,6 +1,29 @@
 class Player{
   PVector position;
   PVector velocity;
+  int planetID=-1;
+  
+  void setPlanet(int id){
+    planetID=id;
+  }
+  
+  void planetCollision(){
+    for(int i=0; i<gazebo.getPlanetAmount();i++){
+      if(sqrt(pow((position.x-gazebo.getPlanet(i).getPosition().x),2)+pow(position.y-gazebo.getPlanet(i).getPosition().y,2))<gazebo.getPlanet(i).getRadius()){
+        setPlanet(i);
+        System.out.println(i);
+        position=gazebo.getPlanet(i).getPosition();
+        break;
+      }
+    }
+  }
+  
+  void velXadd(float abb){
+    velocity.x+=abb;
+  }
+  void velYadd(float abb){
+    velocity.y+=abb;
+  }
   
   Player(){
     position=new PVector(30,0);
@@ -11,7 +34,10 @@ class Player{
     return(position);
   }
   void playerUpdate(){
-    position.add(velocity);
+    planetCollision();
+    if(planetID==-1){
+      position.add(velocity);
+    }
   }
   void drawPlayer(){
     playerUpdate();
