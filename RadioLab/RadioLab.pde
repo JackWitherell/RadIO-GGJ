@@ -1,11 +1,14 @@
 PlanetSystem gazebo;
+Player osiris;
 PGraphics editablesurface;
 int[] fibonacci;
 
 int x=0;
 int y=0;
+
+int cameraM=1;
 float zoom=1;
-boolean [] keys=new boolean[4];
+boolean [] keys=new boolean[8];
 
 void setup(){
   size(800,640,P3D);
@@ -13,6 +16,7 @@ void setup(){
   for(int i=0;i<80;i++){
     gazebo.addPlanet();
   }
+  osiris=new Player();
   editablesurface=createGraphics(100,100);
   fibonacci= new int[11];
   fibonacci[0]= 1;
@@ -30,12 +34,46 @@ void setup(){
 
 void draw(){
   background(0);
-  translate(x,y,zoom);
+  switch(cameraM){
+    case 0:
+      translate(x,y,zoom);
+      break;
+    case 1:
+      translate((width/2)-osiris.getPlayerLocation().x, (height/2)-osiris.getPlayerLocation().y,zoom);
+      break;
+    default:
+      break;
+  }
   if(keys[0]){x--;}
   if(keys[1]){x++;}
   if(keys[2]){y++;}
   if(keys[3]){y--;}
+  if(keys[4]){cameraM=0;}
+  if(keys[5]){cameraM=1;}
   gazebo.drawPlanets();
   //scaletwo(4);
+  
   scale(10);
+  strokeWeight(7);
+  osiris.drawPlayer();
+  strokeWeight(1);
+}
+
+class Player{
+  PVector position;
+  
+  Player(){
+    position=new PVector(30,0);
+  }
+  
+  PVector getPlayerLocation(){
+    return(position);
+  }
+  
+  void drawPlayer(){
+    stroke(255);
+    fill(0);
+    rect(position.x-3,position.y-3,3,5);
+    rect(position.x+1,position.y-3,3,5);
+  }
 }
