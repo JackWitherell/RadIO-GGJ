@@ -6,6 +6,9 @@ class PlanetSystem{
     size=3162.0;
     planets=new ArrayList<Planet>();
   }
+  void addPlanet(Planet pluto){
+    planets.add(pluto);
+  }
   
   Planet addPlanet(){
     boolean done=false;
@@ -74,6 +77,15 @@ class Planet{
     planetColor=color(r,g,b);
   }
   
+  Planet(float x, float y, float dia, int bglow){
+    position=new PVector(x,y);
+    diameter=dia;
+    glow=bglow;
+    planetColor=color(random(0,255),random(0,255),random(0,255));
+    pr=red(planetColor);
+    pg=green(planetColor);
+    pb=blue(planetColor);
+  }
   Planet(float x, float y, float dia){
     position=new PVector(x,y);
     diameter=dia;

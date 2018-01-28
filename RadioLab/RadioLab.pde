@@ -1,50 +1,50 @@
-import processing.sound.*;
-char oldkey = 0;
-WhiteNoise noise;
-PlanetSystem gazebo;
-Player osiris;
-float noiseAmp = 0;
-PGraphics editablesurface;
-int[] fibonacci;
+import processing.sound.*;        //Sound engine
+char oldkey = 0;                  //Keeps lasts key pressed (Used in Player)
+WhiteNoise noise;                 //Noise generation object
+PlanetSystem gazebo;              //PlanetSystem
+Player osiris;                    //Player
+float noiseAmp = 0;               //Noise Amplitude (controls volume on noise)
+PGraphics editablesurface;        //Editable surface for drawing graphics
+int[] fibonacci;                  //Fibonacci scale (first 11 numbers
 
-int x=0;
-int y=0;
-int minSpeed = 1;
-int maxSpeed =20;
-int score=500;
+int x=0;                          //X offset for Camera Mode
+int y=0;                          //Y offset for Camera Mode
+int minSpeed = 1;                 //Zoom Speed
+int maxSpeed =20;                 //Zoom speed max cap
+int score=500;                    //Score for Score Counter
 
-int cameraM=1;
-float zoom=1;
-boolean [] keys=new boolean[11];
+int cameraM=1;                    //Cameramode (1 is player camera)
+float zoom=1;                     //Current zoom value (range 500, -5000
+boolean [] keys=new boolean[11];  //Holds keys right, left up down 1, 2, w, a, s, d, space
 
 void setup(){
-  size(800,640,P3D);
-  gazebo=new PlanetSystem();
+  size(800,640,P3D);              //Size and 3D mode
+  gazebo=new PlanetSystem();      //Define planet system
   
-  Planet PlanetD = gazebo.addPlanet();
-  Planet PlanetT = gazebo.addPlanet();
-  PlanetD.position = new PVector(0,50);
-  PlanetT.position = new PVector(100,0);
-  PlanetT.PlanetType = 't';
+  Planet PlanetD = gazebo.addPlanet();   //Example of a D planet
+  Planet PlanetT = gazebo.addPlanet();   //Example of a T planet
+  PlanetD.position = new PVector(0,50);  //Setting the location
+  PlanetT.position = new PVector(100,0); //Setting the location
+  PlanetT.PlanetType = 't';              //setting planet type
   
-  RadioTower redHarring = PlanetT.addRadioTower(2f,10);
-  RadioTower sender = PlanetT.addRadioTower(1f,10);
-  redHarring.addFrequency(PlanetT.position, 50);
-  sender.addFrequency(PlanetD.position, 50);
+  RadioTower redHerring = PlanetT.addRadioTower(2f,10);  //new Radio Tower on right side of planet (two radians, how wide it searches)
+  RadioTower sender = PlanetT.addRadioTower(1f,10);      //
+  redHerring.addFrequency(PlanetT.position, 50);         //Sets the location of planetT as a frequency
+  sender.addFrequency(PlanetD.position, 50);             //Sets the location of planetD as a frequency
   
   
   /*
-  for(int i=0;i<80;i++){
+  for(int i=0;i<80;i++){                                //Old random generation code
     gazebo.addPlanet();
   }
   */
   
   
-  osiris=new Player();
-  osiris.velocity.x =0;
-  osiris.velocity.y =0;
-  editablesurface=createGraphics(100,100);
-  fibonacci= new int[11];
+  osiris=new Player();                     //New player
+  osiris.velocity.x =0;                    //set velocity to nun
+  osiris.velocity.y =0;                    //set velocity to non
+  editablesurface=createGraphics(100,100); //create editable surface for drawing planets
+  fibonacci= new int[11];                  //set fibonacci sequence
   fibonacci[0]= 1;
   fibonacci[1]= 2;
   fibonacci[2]= 3;
@@ -56,37 +56,38 @@ void setup(){
   fibonacci[8]= 55;
   fibonacci[9]= 89;
   fibonacci[10]= 113;
-  textAlign(LEFT,TOP);;
-  noise = new WhiteNoise(this);
-  noise.amp(0);
+  textAlign(LEFT,TOP);                     //Align text to be under and to the right of the loc
+  noise = new WhiteNoise(this);            //New whitenoise object
+  noise.amp(0);                            //start playing no volume
   noise.play();
 }
 
 void draw(){
-  if(oldkey==lastKeyPressed){
+  if(oldkey==lastKeyPressed){              //set old key
     lastKeyPressed = 0;
   }
-  oldkey = lastKeyPressed;
+  oldkey = lastKeyPressed;                 //final set old key
   
-  noise.amp(noiseAmp);
-  lerp(noiseAmp,0,0.1);
-  background(frameCount/20,0,0);
-  score+=osiris.planetID==-1?-1:5;
-  if(score>600){
+  noise.amp(noiseAmp);                     //handle noise
+  lerp(noiseAmp,0,0.1);                    //tone it down
+  
+  background(frameCount/20,0,0);           //set background to increasing red
+  score+=osiris.planetID==-1?-1:5;         //add to score if on planet otherwise subtract
+  if(score>600){                           //limit max score to 600
     score=600;
   }
-  switch(cameraM){
-    case 0:
+  switch(cameraM){                         //camera switch
+    case 0:                                //if mode 0, freecam
       translate(x,y,zoom);
       break;
-    case 1:
+    case 1:                                //if mode 1, playercam
       translate((width/2)-osiris.getPlayerLocation().x, (height/2)-osiris.getPlayerLocation().y,zoom);
       break;
     default:
       break;
   }
-  gazebo.drawPlanets();
-  scale(10);
+  gazebo.drawPlanets();                    //draw all planets
+  scale(10);                               
   stroke(255);
   fill(0);
   rect(osiris.getPlayerLocation().x-map(zoom,495,-5000,42,3890),
