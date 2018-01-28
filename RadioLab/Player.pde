@@ -18,6 +18,7 @@ class Player{
   }
   
   void escape(){
+    
   }
   
   void velXadd(float abb){
