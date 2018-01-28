@@ -1,3 +1,4 @@
+char lastKeyPressed=0;
 void keyPressed(){
   if(keyCode==RIGHT){
     keys[0]=true;
@@ -32,6 +33,7 @@ void keyPressed(){
   else if(key==' '){
     keys[10]=true;
   }
+  lastKeyPressed = key;
 }
 
 void keyReleased(){
@@ -70,6 +72,7 @@ void keyReleased(){
   }
 }
 
+
 void mouseWheel(MouseEvent event) {
   float e = event.getCount();
   e=-e;
@@ -80,5 +83,4 @@ void mouseWheel(MouseEvent event) {
   if(zoom<-4979){
     zoom=-4979;
   }
-    //println(zoom);
 }

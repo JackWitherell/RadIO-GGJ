@@ -1,5 +1,9 @@
+import processing.sound.*;
+char oldkey = 0;
+WhiteNoise noise;
 PlanetSystem gazebo;
 Player osiris;
+float noiseAmp = 0;
 PGraphics editablesurface;
 int[] fibonacci;
 
@@ -16,12 +20,29 @@ boolean [] keys=new boolean[11];
 void setup(){
   size(800,640,P3D);
   gazebo=new PlanetSystem();
+  
+  Planet PlanetD = gazebo.addPlanet();
+  Planet PlanetT = gazebo.addPlanet();
+  PlanetD.position = new PVector(0,50);
+  PlanetT.position = new PVector(100,0);
+  PlanetT.PlanetType = 't';
+  
+  RadioTower redHarring = PlanetT.addRadioTower(2f,10);
+  RadioTower sender = PlanetT.addRadioTower(1f,10);
+  redHarring.addFrequency(PlanetT.position, 50);
+  sender.addFrequency(PlanetD.position, 50);
+  
+  
+  /*
   for(int i=0;i<80;i++){
     gazebo.addPlanet();
   }
+  */
+  
+  
   osiris=new Player();
-  osiris.velocity.x =1;
-  osiris.velocity.y =1;
+  osiris.velocity.x =0;
+  osiris.velocity.y =0;
   editablesurface=createGraphics(100,100);
   fibonacci= new int[11];
   fibonacci[0]= 1;
@@ -35,10 +56,20 @@ void setup(){
   fibonacci[8]= 55;
   fibonacci[9]= 89;
   fibonacci[10]= 113;
-  textAlign(LEFT,TOP);
+  textAlign(LEFT,TOP);;
+  noise = new WhiteNoise(this);
+  noise.amp(0);
+  noise.play();
 }
 
 void draw(){
+  if(oldkey==lastKeyPressed){
+      lastKeyPressed = 0;
+  }
+  oldkey = lastKeyPressed;
+  
+  noise.amp(noiseAmp);
+  lerp(noiseAmp,0,0.1);
   background(frameCount/20,0,0);
   score+=osiris.planetID==-1?-1:5;
   if(score>600){

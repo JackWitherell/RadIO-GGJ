@@ -7,7 +7,7 @@ class PlanetSystem{
     planets=new ArrayList<Planet>();
   }
   
-  void addPlanet(){
+  Planet addPlanet(){
     boolean done=false;
     float x=0.0;
     float y=0.0;
@@ -26,8 +26,9 @@ class PlanetSystem{
         }
       }
     }
-    System.out.println(planets.size());
-    planets.add(new Planet(x,y,sized));
+    Planet temp = new Planet(x,y,sized);
+    planets.add(temp);
+    return temp;
   }
   
   int getPlanetAmount(){
@@ -46,10 +47,22 @@ class PlanetSystem{
 }
 
 class Planet{
+  
   PVector position;
   float diameter;
   PImage planetImage;
   int glow;
+  char PlanetType = 'd';
+  ArrayList<RadioTower> radioTowers = new ArrayList<RadioTower>();
+  
+  RadioTower addRadioTower(float angle, int fudge){
+    RadioTower temp = new RadioTower();
+    temp.fudge = fudge;
+    temp.position = new PVector(position.x + cos(angle) * this.getRadius(), position.y + sin(angle)*this.getRadius());
+    radioTowers.add(temp);
+    return temp;
+  }
+  
   color planetColor;
   float pr,pb,pg;
   
