@@ -44,23 +44,23 @@ class Player{
         //println("frequency " + frequency);
         if(keys[0]&&frequency>0){
           frequency--;
-          noiseAmp = .5;
+          noiseAmp = .1;
         }
         else if(keys[1]&&frequency<100){
           frequency++;
-          noiseAmp = .5;
+          noiseAmp = .1;
         }
         else if(!currentTower.isNear(frequency)){
-          noiseAmp = 1;
+          noiseAmp = .2;
         }
         if(currentTower.isNear(frequency))
         {
           noiseAmp = 0;
         }
-        if(keys[10]&&currentTower.isNear(frequency)){
-          position.set(currentTower.origin(frequency));
-          trapState = 'f';
-          planetID=-1;
+        if(key==' '&&currentTower.isNear(frequency)){
+            position.set(currentTower.origin(frequency));
+            trapState = 'f';
+            planetID=-1;
         }
       default:
         break;
