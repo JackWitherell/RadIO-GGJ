@@ -114,17 +114,23 @@ class Player{
     }
   }
   void drawPlayer(){
+    if(offset==66666){
+      velocity.set(0,0);
+    }
     playerUpdate();
     stroke(255);
     fill(0);
     pushMatrix();
     translate(position.x-3,position.y-3);
     rotateX(.011*frameCount);
-    box(5);
+    //translate(offset,0,0);
+    box(5+offset);
     rotateY(.024*frameCount);
-    box(5);
+    //translate(0,0,offset);
+    box(5+offset);
     rotateZ(.038*frameCount);
-    box(5);
+    //translate(0,offset,0);
+    box(5+offset);
     popMatrix();
   }
 }

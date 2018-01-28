@@ -1,11 +1,14 @@
 import processing.sound.*;        //Sound engine
+SoundFile music;
 char oldkey = 0;                  //Keeps lasts key pressed (Used in Player)
+char lastKeyPressed = 0;
 WhiteNoise noise;                 //Noise generation object
 PlanetSystem gazebo;              //PlanetSystem
 Player osiris;                    //Player
 float noiseAmp = 0;               //Noise Amplitude (controls volume on noise)
 PGraphics editablesurface;        //Editable surface for drawing graphics
 int[] fibonacci;                  //Fibonacci scale (first 11 numbers
+int offset=0;
 
 int x=0;                          //X offset for Camera Mode
 int y=0;                          //Y offset for Camera Mode
@@ -18,17 +21,18 @@ float zoom=1;                     //Current zoom value (range 500, -5000
 boolean [] keys=new boolean[11];  //Holds keys right, left up down 1, 2, w, a, s, d, space
 
 void setup(){
-  size(800,640,P3D);              //Size and 3D mode
+  size(1200,640,P3D);              //Size and 3D mode
   gazebo=new PlanetSystem();      //Define planet system
   
-
+  music = new SoundFile(this, "music.mp3");
+  music.play();
   Planet PlanetD = gazebo.addPlanet();
   Planet PlanetT = gazebo.addPlanet();
-  Planet PlanetGoal = gazebo.addPlanet();
+  Planet goal=new Planet(3000.0,3000.0,50.0,30);
+  goal.setColor(255,255,50);
+  gazebo.addPlanet(goal);
   PlanetD.position = new PVector(0,50);
   PlanetT.position = new PVector(100,0);
-  PlanetGoal.position = new PVector(3000,3000);
-  PlanetGoal.diameter = 100;
   PlanetT.PlanetType = 't';
   
   RadioTower redHerring = PlanetT.addRadioTower(2f,10);  //new Radio Tower on right side of planet (two radians, how wide it searches)
@@ -37,11 +41,11 @@ void setup(){
   sender.addFrequency(PlanetD.position, 50);             //Sets the location of planetD as a frequency
   
   
-  /*
+  
   for(int i=0;i<80;i++){                                //Old random generation code
     gazebo.addPlanet();
   }
-  */
+  
   
   
   osiris=new Player();                     //New player
@@ -77,8 +81,15 @@ void draw(){
   
   background(frameCount/20,0,0);           //set background to increasing red
   score+=osiris.planetID==-1?-1:5;         //add to score if on planet otherwise subtract
-  if(score>600){                           //limit max score to 600
-    score=600;
+  if(score>200){                           //limit max score to 600
+    score=200;
+  }
+  if(score<0){
+    offset++;
+    offset*=2;
+    if(offset>66666){
+      offset=66666;
+    }
   }
   switch(cameraM){                         //camera switch
     case 0:                                //if mode 0, freecam
@@ -94,25 +105,26 @@ void draw(){
   scale(10);                               //scale everything up by 10;
   stroke(255);
   fill(0);
-  rect(osiris.getPlayerLocation().x-map(zoom,495,-5000,42,3890),
+  rect(osiris.getPlayerLocation().x-map(zoom,495,-5000,42,3890), //draw UI
        osiris.getPlayerLocation().y-map(zoom,495,-5000,34,3150),
        map(zoom,-4979,500,1000,10)*4.9,
        map(zoom,-4979,500,1000,10));
   fill(255);
-  textSize(map(zoom,-4979,500,750,7));
-  text("health: "+Integer.toString(score),osiris.getPlayerLocation().x-map(zoom,495,-5000,42,3890),osiris.getPlayerLocation().y-map(zoom,495,-5000,34,3150));
-  if(keys[0]){x-=map(zoom,500,-500,minSpeed,maxSpeed);}
-  if(keys[1]){x+=map(zoom,500,-500,minSpeed,maxSpeed);}
-  if(keys[2]){y+=map(zoom,500,-500,minSpeed,maxSpeed);}
-  if(keys[3]){y-=map(zoom,500,-500,minSpeed,maxSpeed);}
+  textSize(map(zoom,-4979,500,750,7));                           
+  text("health: "+Integer.toString(score),
+       osiris.getPlayerLocation().x-map(zoom,495,-5000,42,3890),
+       osiris.getPlayerLocation().y-map(zoom,495,-5000,34,3150));//draw text for score
+  if(keys[0]){x-=map(zoom,500,-500,minSpeed,maxSpeed);}//move camera offset
+  if(keys[1]){x+=map(zoom,500,-500,minSpeed,maxSpeed);}//move camera offset
+  if(keys[2]){y+=map(zoom,500,-500,minSpeed,maxSpeed);}//move camera offset
+  if(keys[3]){y-=map(zoom,500,-500,minSpeed,maxSpeed);}//move camera offset
   if(keys[4]){cameraM=0;}
   if(keys[5]){cameraM=1;}
-  if(keys[6]){osiris.velYadd(-.25);}
+  if(keys[6]){osiris.velYadd(-.25);}                   //add velocity from keys
   if(keys[7]){osiris.velXadd(-.25);}
   if(keys[8]){osiris.velYadd(.25);}
   if(keys[9]){osiris.velXadd(.25);}
-  //scaletwo(4);
   strokeWeight(7);
-  osiris.drawPlayer();
+  osiris.drawPlayer(); //draw player
   strokeWeight(1);
 }
