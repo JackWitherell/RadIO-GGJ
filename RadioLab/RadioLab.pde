@@ -37,7 +37,7 @@ void setup(){
 }
 
 void draw(){
-  background(frameCount/20,0,0);
+  background(0,0,0);
   switch(cameraM){
     case 0:
       translate(x,y,zoom);

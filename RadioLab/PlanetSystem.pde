@@ -51,19 +51,32 @@ class Planet{
   PImage planetImage;
   int glow;
   color planetColor;
+  float pr,pb,pg;
+  
+  void glowSetColor(float r, float g, float b){
+    pr=r;
+    pb=b;
+    pg=g;
+  }
+  void setColor(float r, float g, float b){
+    planetColor=color(r,g,b);
+  }
   
   Planet(float x, float y, float dia){
     position=new PVector(x,y);
     diameter=dia;
     glow=int(dia);
     planetColor=color(random(0,255),random(0,255),random(0,255));
+    pr=red(planetColor);
+    pg=green(planetColor);
+    pb=blue(planetColor);
   }
   
   void loadImage(){
     editablesurface.beginDraw();
     for(int ix=3;ix<11;ix++){
       editablesurface.noStroke();
-      editablesurface.fill(255,255,255,fibonacci[ix]);
+      editablesurface.fill(pr,pb,pg,fibonacci[ix]);
       editablesurface.ellipse(50,50,diameter+(glow*(float(11-ix)/11)),diameter+(glow*(float(11-ix)/11)));
     }
 
