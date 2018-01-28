@@ -3,7 +3,8 @@ class Player{
   PVector velocity;
   int planetID=-1;
   boolean onPlanet = false;
-  char trapState='f';//f floating d debug
+  float frequency = 0;
+  char trapState='f';//f floating d debug t transmission
   
   void setPlanet(int id){
     planetID=id;
@@ -33,6 +34,12 @@ class Player{
           planetID=-1;
         }
         break;
+      case 't':
+        if(keys[7]){
+          
+        }
+        if(keys[9]){
+        }
       default:
         break;
     }
