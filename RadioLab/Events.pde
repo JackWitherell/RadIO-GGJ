@@ -29,6 +29,9 @@ void keyPressed(){
   else if(key=='d'){
     keys[9]=true;
   }
+  else if(key==' '){
+    keys[10]=true;
+  }
 }
 
 void keyReleased(){
@@ -61,6 +64,9 @@ void keyReleased(){
   }
   else if(key=='d'){
     keys[9]=false;
+  }
+  else if(key==' '){
+    keys[10]=false;
   }
 }
 

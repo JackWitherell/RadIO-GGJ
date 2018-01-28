@@ -10,7 +10,7 @@ int maxSpeed =20;
 
 int cameraM=1;
 float zoom=1;
-boolean [] keys=new boolean[10];
+boolean [] keys=new boolean[11];
 
 void setup(){
   size(800,640,P3D);
