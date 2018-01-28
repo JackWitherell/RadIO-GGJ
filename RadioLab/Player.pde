@@ -37,9 +37,9 @@ class Player{
     return(position);
   }
   void playerUpdate(){
-    planetCollision();
     if(planetID==-1){
       position.add(velocity);
+      planetCollision();
     }
     else{
       position.set(lerp(gazebo.getPlanet(planetID).getPosition().x,position.x,.96),lerp(gazebo.getPlanet(planetID).getPosition().y,position.y,.96));

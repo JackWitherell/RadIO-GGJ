@@ -37,7 +37,7 @@ void setup(){
 }
 
 void draw(){
-  background(0);
+  background(frameCount/20,0,0);
   switch(cameraM){
     case 0:
       translate(x,y,zoom);
@@ -54,8 +54,8 @@ void draw(){
   fill(0);
   rect(osiris.getPlayerLocation().x-map(zoom,495,-5000,42,3890),
        osiris.getPlayerLocation().y-map(zoom,495,-5000,34,3150),
-       map(zoom,-500,500,200,10),
-       map(zoom,-500,500,200,10));
+       map(zoom,-4979,500,1000,10)*4,
+       map(zoom,-4979,500,1000,10));
   if(keys[0]){x-=map(zoom,500,-500,minSpeed,maxSpeed);}
   if(keys[1]){x+=map(zoom,500,-500,minSpeed,maxSpeed);}
   if(keys[2]){y+=map(zoom,500,-500,minSpeed,maxSpeed);}
