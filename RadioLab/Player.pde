@@ -57,10 +57,10 @@ class Player{
         {
           noiseAmp = 0;
         }
-        if(keys[10]&&currentTower.isNear(frequency)){
-          position.set(currentTower.origin(frequency));
-          trapState = 'f';
-          planetID=-1;
+        if(key==' '&&currentTower.isNear(frequency)){
+            position.set(currentTower.origin(frequency));
+            trapState = 'f';
+            planetID=-1;
         }
       default:
         break;

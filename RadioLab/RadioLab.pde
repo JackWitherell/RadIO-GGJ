@@ -64,7 +64,7 @@ void setup(){
 
 void draw(){
   if(oldkey==lastKeyPressed){
-      lastKeyPressed = 0;
+    lastKeyPressed = 0;
   }
   oldkey = lastKeyPressed;
   

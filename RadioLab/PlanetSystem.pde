@@ -47,7 +47,6 @@ class PlanetSystem{
 }
 
 class Planet{
-  
   PVector position;
   float diameter;
   PImage planetImage;

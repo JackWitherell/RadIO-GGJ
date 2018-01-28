@@ -1,4 +1,4 @@
-char lastKeyPressed=0;
+char lastKeyPressed = 0;
 void keyPressed(){
   if(keyCode==RIGHT){
     keys[0]=true;
