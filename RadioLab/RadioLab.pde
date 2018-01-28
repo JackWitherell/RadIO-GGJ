@@ -21,11 +21,15 @@ void setup(){
   size(800,640,P3D);              //Size and 3D mode
   gazebo=new PlanetSystem();      //Define planet system
   
-  Planet PlanetD = gazebo.addPlanet();   //Example of a D planet
-  Planet PlanetT = gazebo.addPlanet();   //Example of a T planet
-  PlanetD.position = new PVector(0,50);  //Setting the location
-  PlanetT.position = new PVector(100,0); //Setting the location
-  PlanetT.PlanetType = 't';              //setting planet type
+
+  Planet PlanetD = gazebo.addPlanet();
+  Planet PlanetT = gazebo.addPlanet();
+  Planet PlanetGoal = gazebo.addPlanet();
+  PlanetD.position = new PVector(0,50);
+  PlanetT.position = new PVector(100,0);
+  PlanetGoal.position = new PVector(3000,3000);
+  PlanetGoal.diameter = 100;
+  PlanetT.PlanetType = 't';
   
   RadioTower redHerring = PlanetT.addRadioTower(2f,10);  //new Radio Tower on right side of planet (two radians, how wide it searches)
   RadioTower sender = PlanetT.addRadioTower(1f,10);      //
