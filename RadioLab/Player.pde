@@ -44,14 +44,14 @@ class Player{
         //println("frequency " + frequency);
         if(keys[0]&&frequency>0){
           frequency--;
-          noiseAmp = .5;
+          noiseAmp = 0;
         }
         else if(keys[1]&&frequency<100){
           frequency++;
-          noiseAmp = .5;
+          noiseAmp = 0;
         }
         else if(!currentTower.isNear(frequency)){
-          noiseAmp = 1;
+          noiseAmp = 0;
         }
         if(currentTower.isNear(frequency))
         {
@@ -117,7 +117,14 @@ class Player{
     playerUpdate();
     stroke(255);
     fill(0);
-    rect(position.x-3,position.y-3,3,5);
-    rect(position.x+1,position.y-3,3,5);
+    pushMatrix();
+    translate(position.x-3,position.y-3);
+    rotateX(.011*frameCount);
+    box(5);
+    rotateY(.024*frameCount);
+    box(5);
+    rotateZ(.038*frameCount);
+    box(5);
+    popMatrix();
   }
 }
