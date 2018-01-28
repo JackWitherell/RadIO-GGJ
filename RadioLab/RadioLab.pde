@@ -7,6 +7,7 @@ int x=0;
 int y=0;
 int minSpeed = 1;
 int maxSpeed =20;
+int score=500;
 
 int cameraM=1;
 float zoom=1;
@@ -34,10 +35,15 @@ void setup(){
   fibonacci[8]= 55;
   fibonacci[9]= 89;
   fibonacci[10]= 113;
+  textAlign(LEFT,TOP);
 }
 
 void draw(){
-  background(0,0,0);
+  background(frameCount/20,0,0);
+  score+=osiris.planetID==-1?-1:5;
+  if(score>600){
+    score=600;
+  }
   switch(cameraM){
     case 0:
       translate(x,y,zoom);
@@ -54,8 +60,11 @@ void draw(){
   fill(0);
   rect(osiris.getPlayerLocation().x-map(zoom,495,-5000,42,3890),
        osiris.getPlayerLocation().y-map(zoom,495,-5000,34,3150),
-       map(zoom,-4979,500,1000,10)*4,
+       map(zoom,-4979,500,1000,10)*4.9,
        map(zoom,-4979,500,1000,10));
+  fill(255);
+  textSize(map(zoom,-4979,500,750,7));
+  text("health: "+Integer.toString(score),osiris.getPlayerLocation().x-map(zoom,495,-5000,42,3890),osiris.getPlayerLocation().y-map(zoom,495,-5000,34,3150));
   if(keys[0]){x-=map(zoom,500,-500,minSpeed,maxSpeed);}
   if(keys[1]){x+=map(zoom,500,-500,minSpeed,maxSpeed);}
   if(keys[2]){y+=map(zoom,500,-500,minSpeed,maxSpeed);}
