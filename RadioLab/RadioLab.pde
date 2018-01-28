@@ -87,7 +87,7 @@ void draw(){
       break;
   }
   gazebo.drawPlanets();                    //draw all planets
-  scale(10);                               
+  scale(10);                               //scale everything up by 10;
   stroke(255);
   fill(0);
   rect(osiris.getPlayerLocation().x-map(zoom,495,-5000,42,3890),
